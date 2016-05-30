@@ -28,17 +28,20 @@
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
+
+      <!-- Inizio Parte Login -->
       <ul class="nav navbar-nav navbar-right">
-      <li><a href="#">Link</a></li>
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Entra<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#">Sign In</a></li>
-          <li role="separator" class="divider"></li>
-          <li><a href="#">Sign Up</a></li>
-        </ul>
-      </li>
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Entra<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Sign In</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Sign Up</a></li>
+          </ul>
+        </li>
       </ul>
+     <!-- Fine Parte Login -->
     </div><!-- /.container-fluid -->
   </nav>
 
