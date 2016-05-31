@@ -55,7 +55,7 @@
               <hr>
               <div class="row">
                 <div class="col-xs-8">
-                  <a href="#" class="active" id="login-form-link">Login</a>
+                  <a href="#" class="active" id="login-form-link">Accedi</a>
                 </div>
               </div>
             </div>

@@ -40,7 +40,7 @@ if ((!empty($username)) && (!empty($password)) && (!empty($email))) {
             <div class="panel-heading">
               <div class="row">
                 <div class="col-xs-6">
-                  <a href="signin.php" id="register-form-link">Vai al Log In</a>
+                  <a href="signin.php" id="register-form-link">Accedi</a>
                 </div>
                 <div class="col-xs-6 col-md-4">
                   <a href="../index.html" id="register-form-link">Home</a>

@@ -46,6 +46,7 @@
                 <li>
                     <a href="logout.php">Sign Out</a>
                 </li>
+            </ul>
         </div>
         <!-- /#sidebar-wrapper -->
 
