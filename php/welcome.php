@@ -2,49 +2,85 @@
    include('session.php');
    $user = $_SESSION['login_user'];
 ?>
-<html>
+<html lang="en">
 
-   <head>
-     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-     <!-- jQuery library -->
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-     <!-- Latest compiled JavaScript -->
-     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<head>
 
-     <title>Print3d</title>
-   </head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-   <body>
-     <nav class="navbar navbar-default">
-       <div class="container-fluid">
-         <!-- Brand and toggle get grouped for better mobile display -->
-         <div class="navbar-header">
-           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-             <span class="sr-only">Toggle navigation</span>
-             <span class="icon-bar">Prenotazioni</span>
-             <span class="icon-bar"></span>
-             <span class="icon-bar"></span>
-           </button>
-           <a class="navbar-brand" href="#">Print3D</a>
-         </div>
+    <title>Print3D</title>
 
-         <!-- Collect the nav links, forms, and other content for toggling -->
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
 
-         <!-- Inizio Parte Login -->
-         <ul class="nav navbar-nav navbar-right">
-           <!--<li><a href="#">Link</a></li>-->
-           <li class="dropdown">
-             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Welcome <?php echo $user; ?>
-               <span class="caret"></span></a>
-             <ul class="dropdown-menu">
-               <li><a href = "logout.php">Sign Out</a></li>
-             </ul>
-           </li>
-         </ul>
-        <!-- Fine Parte Login -->
-       </div><!-- /.container-fluid -->
-     </nav>
+    <!-- Custom CSS -->
+    <link href="../css/simple-sidebar.css" rel="stylesheet">
 
-   </body>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a>Benvenuto <b><?php echo $user;?></b></a>
+                </li>
+                <li>
+                    <a href="prenotazioni.php">Prenotazioni</a>
+                </li>
+                <li>
+                    <a href="logout.php">Sign Out</a>
+                </li>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1>Print3D WebSite</h1>
+                        <p>Il nostro sito Web da la possibilità ai nostri utenti di usufruire di stampanti 3D per la realizzazione dei propri progetti</p>
+                        <p>Prenota ora! </p>
+                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Menu</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="../js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../js/bootstrap.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+
+</body>
 
 </html>
