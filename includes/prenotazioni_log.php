@@ -1,3 +1,16 @@
+<?php
+   include('session.php');
+   include("config.php");
+   $user = $_SESSION['login_user'];
+
+   /*query per vedere se ci sono prenotazioni*/
+   $sql = "SELECT id FROM prenotazioni";
+   $result = mysqli_query($db,$sql);
+   $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+   $active = $row['active'];
+   $count = mysqli_num_rows($result);
+?>
+
 <html>
 
 <title>Prenotazioni</title>
@@ -31,11 +44,9 @@
       <!-- Sidebar -->
       <div id="sidebar-wrapper">
           <ul class="sidebar-nav">
-              <li class="sidebar-brand">
-                  <a href="../index.html">
-                      Print3D
-                  </a>
-              </li>
+            <li class="sidebar-brand">
+                <a>Benvenuto <b><?php echo $user;?></b></a>
+            </li>
               <li>
                   <a href="prenotazioni.php">Prenotazioni</a>
               </li>
@@ -51,6 +62,7 @@
           <div class="container-fluid">
               <div class="row">
                   <div class="col-lg-12">
+                    <? if ($count >= 1): ?>
                     <h1>Print3D Prenotazioni</h1>
                     <p>Le nostre prenotazioni in corso!</p>
                     <?php
@@ -59,35 +71,48 @@
                             die(mysql_error());
                         }
                         mysql_select_db("print3D");
-                        $results = mysql_query("SELECT * FROM users LIMIT 10");
+                        $results = mysql_query("SELECT * FROM prenotazioni LIMIT 10");
                         while($row = mysql_fetch_array($results)) {
                         ?>
-                          <table class="table table-bordered">
-                          <thead>
-                            <tr>
-                              <th>Username</th>
-                              <th>Password</th>
-                              <th>Email</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td><?php echo $row['username']?></td>
-                              <td><?php echo $row['password']?></td>
-                              <td><?php echo $row['email']?></td>
-                            </tr>
-                         </tbody>
-                        </table>
+                        <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th>Inizio</th>
+                            <th>Durata</th>
+                            <th>Macchina</th>
+                            <th>Prenotato da</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><?php echo $row['inizio']?></td>
+                            <td><?php echo $row['durata']?></td>
+                            <td><?php echo $row['macchina']?></td>
+                            <td><?php echo $row['prenotazione']?></td>
+                            <? if ($row['prenotazione'] == $user): ?>
+                              <td class="glyphicon glyphicon-trash" aria-hidden="true"></td>
+                            <? else: ?>
+                              <td class="glyphicon glyphicon-lock"></td>
+                            <? endif; ?>
+                          </tr>
+                       </tbody>
+                      </table>
 
                         <?php
                         }
                         ?>
-
                         <?php
                         include ('user_prenotation.php');
                         ?>
+                        <?php
+                        include ('gestione.php');
+                        ?>
                       <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Menu</a>
                   </div>
+                <? else: ?>
+                <h1>Print3D Prenotazioni</h1>
+                <p>Spiacenti non sono predenti prenotazioni al momento!</p>
+                <? endif; ?>
               </div>
           </div>
       </div>
