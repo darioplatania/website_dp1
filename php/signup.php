@@ -1,23 +1,34 @@
 <?php
 
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'print3D');
-define('DB_USER','root');
-define('DB_PASSWORD','california');
+include ('config.php');
 
-$con=mysql_connect(DB_HOST,DB_USER,DB_PASSWORD) or die("Failed to connect to MySQL: " .     mysql_error());
-$db=mysql_select_db(DB_NAME,$con) or die("Failed to connect to MySQL: " . mysql_error());
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  if (empty($_POST["username"])) {
+    $nameErr = "Username richiesto";
+  } else {
+    $name = test_input($_POST["username"]);
+  }
 
+  if (empty($_POST["email"])) {
+    $emailErr = "Email richiesta";
+  } else {
+    $email = test_input($_POST["email"]);
+  }
 
+  if (empty($_POST['password'])) {
+    $passwordErr = "Password richiesta";
+  } else {
+    $password = test_input($_POST['password']);
+  }
+  //$query = "INSERT INTO users (username,password,email) VALUES ('$username','$password','$email')";
+  //$data = mysql_query ($query)or die(mysql_error());
+}
 
-$username = $_POST['username'];
-$password =  md5($_POST['password']);
-$email =  $_POST['email'];
-//$query = "INSERT INTO users (username,password,email) VALUES ('$username','$password','$email')";
-//$data = mysql_query ($query)or die(mysql_error());
-if ((!empty($username)) && (!empty($password)) && (!empty($email))) {
-  $query = "INSERT INTO users (username,password,email) VALUES ('$username','$password','$email')";
-  $data = mysql_query ($query)or die(mysql_error());
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
 }
 ?>
 
@@ -56,15 +67,18 @@ if ((!empty($username)) && (!empty($password)) && (!empty($email))) {
             <div class="panel-body">
               <div class="row">
                 <div class="col-lg-12">
-                  <form id="login-form" action="" method="post" role="form" style="display: block;">
+                  <form id="login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" role="form" style="display: block;">
                     <div class="form-group">
                       <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+                      <span class="error">* <?php echo $nameErr;?></span>
                     </div>
                     <div class="form-group">
                       <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                      <span class="error">* <?php echo $passwordErr;?></span>
                     </div>
                     <div class="form-group">
                       <input type="email" name="email" id="email" tabindex="3" class="form-control" placeholder="Email">
+                      <span class="error">* <?php echo $emailErr;?></span>
                     </div>
                     <div class="form-group">
                       <div class="row">
