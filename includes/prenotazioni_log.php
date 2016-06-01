@@ -9,6 +9,7 @@
    //$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
    $active = $row['active'];
    $count = mysqli_num_rows($result);
+   mysqli_close($db);
 ?>
 
 <html>
@@ -105,7 +106,7 @@
                   </div>
                 <? else: ?>
                 <h1>Print3D Prenotazioni</h1>
-                <p>Spiacenti non sono predenti prenotazioni al momento!</p>
+                <p>Spiacenti non sono presenti prenotazioni al momento!</p>
                 <? endif; ?>
               </div>
           </div>

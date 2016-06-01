@@ -98,7 +98,7 @@
                   </div>
                 <? else: ?>
                 <h1>Print3D Prenotazioni</h1>
-                <p>Spiacenti non sono predenti prenotazioni al momento!</p>
+                <p>Spiacenti non sono presenti prenotazioni al momento!</p>
                 <? endif; ?>
               </div>
           </div>
