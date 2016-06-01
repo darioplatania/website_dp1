@@ -1,22 +1,16 @@
 <?php
   include('config.php');
-  session_start();
-
-  $user_check = $_SESSION['login_user'];
-
-  $ses_sql = mysqli_query($db,"select username from admin where username = '$user_check' ");
-
-  $row = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC);
-
-  $login_session = $row['username'];
+  include('session.php');
 
    /*query per vedere se ci sono prenotazioni*/
-   $sql = "SELECT id FROM prenotazioni";
+   $sql = "SELECT * FROM prenotazioni";
    $result = mysqli_query($db,$sql);
-   $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+   //$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
    $active = $row['active'];
-   $count = mysqli_num_rows($result);   
+   $count = mysqli_num_rows($result);
 ?>
+
+
 
 <html>
 
@@ -77,15 +71,7 @@
                     <? if ($count >= 1): ?>
                     <h1>Print3D Prenotazioni</h1>
                     <p>Le nostre prenotazioni in corso!</p>
-                    <?php
-                        $connect = mysql_connect("localhost","root", "california");
-                        if (!$connect) {
-                            die(mysql_error());
-                        }
-                        mysql_select_db("print3D");
-                        $results = mysql_query("SELECT * FROM prenotazioni LIMIT 10");
-                        while($row = mysql_fetch_array($results)) {
-                        ?>
+                        <?php while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) { ?>
                           <table class="table table-bordered">
                           <thead>
                             <tr>

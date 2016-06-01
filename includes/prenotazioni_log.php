@@ -4,11 +4,11 @@
    $user = $_SESSION['login_user'];
 
    /*query per vedere se ci sono prenotazioni*/
-   $sql = "SELECT id FROM prenotazioni";
+   $sql = "SELECT * FROM prenotazioni";
    $result = mysqli_query($db,$sql);
-   $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+   //$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
    $active = $row['active'];
-   $count = mysqli_num_rows($result);
+   $count = mysqli_num_rows($result);   
 ?>
 
 <html>
@@ -66,13 +66,7 @@
                     <h1>Print3D Prenotazioni</h1>
                     <p>Le nostre prenotazioni in corso!</p>
                     <?php
-                        $connect = mysql_connect("localhost","root", "california");
-                        if (!$connect) {
-                            die(mysql_error());
-                        }
-                        mysql_select_db("print3D");
-                        $results = mysql_query("SELECT * FROM prenotazioni LIMIT 10");
-                        while($row = mysql_fetch_array($results)) {
+                        while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) {
                         ?>
                         <table class="table table-bordered">
                         <thead>
