@@ -11,7 +11,7 @@ $db=mysql_select_db(DB_NAME,$con) or die("Failed to connect to MySQL: " . mysql_
 
 
 $username = $_POST['username'];
-$password =  $_POST['password'];
+$password =  md5($_POST['password']);
 $email =  $_POST['email'];
 //$query = "INSERT INTO users (username,password,email) VALUES ('$username','$password','$email')";
 //$data = mysql_query ($query)or die(mysql_error());
