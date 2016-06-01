@@ -1,8 +1,5 @@
 <?php
-/* Attempt MySQL server connection. Assuming you are running MySQL
-server with default setting (user 'root' with no password) */
 include ('config.php');
-//$link = mysqli_connect("localhost", "root", "california", "print3D");
 
 // Check connection
 if($db === false){
@@ -14,15 +11,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usernameErr = "Username richiesto";
   } else {
     $username = mysqli_real_escape_string($db, $_POST['username']);
-
+    // check if name only contains letters and whitespace
+    if (!preg_match("/^[a-zA-Z ]*$/",$username)) {
+      $nameErr = "Inserire solo lettere o spazi bianchi";
+    }
   }
 
   if (empty($_POST["email"])) {
     $emailErr = "Email richiesta";
   } else {
     $email = mysqli_real_escape_string($db, $_POST['email']);
-
-
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      $emailErrFormat = "Inserire l'email nel formato admin@example.com";
+    }
   }
 
   if (empty($_POST['password'])) {
@@ -30,14 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } else {
     $password = mysqli_real_escape_string($db, (md5($_POST['password'])));
   }
-  //$query = "INSERT INTO users (username,password,email) VALUES ('$username','$password','$email')";
-  //$data = mysql_query ($query)or die(mysql_error());
-}
 
-// Escape user inputs for security
-//$username = mysqli_real_escape_string($db, $_POST['username']);
-//$password = mysqli_real_escape_string($db, $_POST['password']);
-//$email = mysqli_real_escape_string($db, $_POST['email']);
+}
 
 // attempt insert query execution
 $sql = "INSERT INTO users (username, password, email) VALUES ('$username', '$password', '$email')";
@@ -90,6 +85,7 @@ mysqli_close($db);
                     <div class="form-group">
                       <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
                       <?php echo "<p class='text-danger'>$usernameErr</p>";?>
+                      <?php echo "<p class='text-danger'>$nameErr</p>";?>
                     </div>
                     <div class="form-group">
                       <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
@@ -98,6 +94,7 @@ mysqli_close($db);
                     <div class="form-group">
                       <input type="email" name="email" id="email" tabindex="3" class="form-control" placeholder="Email">
                       <?php echo "<p class='text-danger'>$emailErr</p>";?>
+                      <?php echo "<p class='text-danger'>$emailErrFormat</p>";?>
                     </div>
                     <div class="form-group">
                       <div class="row">
