@@ -89,15 +89,15 @@ mysqli_close($db);
                   <form id="login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" role="form" style="display: block;">
                     <div class="form-group">
                       <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
-                      <span class="error">* <?php echo $usernameErr;?></span>
+                      <?php echo "<p class='text-danger'>$usernameErr</p>";?>
                     </div>
                     <div class="form-group">
                       <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
-                      <span class="error">* <?php echo $passwordErr;?></span>
+                      <?php echo "<p class='text-danger'>$passwordErr</p>";?>
                     </div>
                     <div class="form-group">
                       <input type="email" name="email" id="email" tabindex="3" class="form-control" placeholder="Email">
-                      <span class="error">* <?php echo $emailErr;?></span>
+                      <?php echo "<p class='text-danger'>$emailErr</p>";?>
                     </div>
                     <div class="form-group">
                       <div class="row">

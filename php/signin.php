@@ -22,7 +22,7 @@
          $_SESSION['login_user'] = $myusername;
          header("location: welcome.php");
       }else {
-         echo $error = "Your Login Name or Password is invalid";
+         $error = "Si prega di inserire Username e Password";
       }
    }
 ?>
@@ -68,6 +68,7 @@
                     <div class="form-group">
                       <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
                     </div>
+                    <?php echo "<p class='text-danger'>$error</p>";?>
                     <div class="form-group text-center">
                       <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
                       <label for="remember"> Remember Me</label>
