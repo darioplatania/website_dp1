@@ -1,35 +1,54 @@
 <?php
-
+/* Attempt MySQL server connection. Assuming you are running MySQL
+server with default setting (user 'root' with no password) */
 include ('config.php');
+//$link = mysqli_connect("localhost", "root", "california", "print3D");
+
+// Check connection
+if($db === false){
+    die("ERROR: Could not connect. " . mysqli_connect_error());
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["username"])) {
-    $nameErr = "Username richiesto";
+    $usernameErr = "Username richiesto";
   } else {
-    $name = test_input($_POST["username"]);
+    $username = mysqli_real_escape_string($db, $_POST['username']);
+
   }
 
   if (empty($_POST["email"])) {
     $emailErr = "Email richiesta";
   } else {
-    $email = test_input($_POST["email"]);
+    $email = mysqli_real_escape_string($db, $_POST['email']);
+
+
   }
 
   if (empty($_POST['password'])) {
     $passwordErr = "Password richiesta";
   } else {
-    $password = test_input($_POST['password']);
+    $password = mysqli_real_escape_string($db, (md5($_POST['password'])));
   }
   //$query = "INSERT INTO users (username,password,email) VALUES ('$username','$password','$email')";
   //$data = mysql_query ($query)or die(mysql_error());
 }
 
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
+// Escape user inputs for security
+//$username = mysqli_real_escape_string($db, $_POST['username']);
+//$password = mysqli_real_escape_string($db, $_POST['password']);
+//$email = mysqli_real_escape_string($db, $_POST['email']);
+
+// attempt insert query execution
+$sql = "INSERT INTO users (username, password, email) VALUES ('$username', '$password', '$email')";
+if(mysqli_query($db, $sql)){
+    echo "Records added successfully.";
+} else{
+    echo "ERROR: Could not able to execute $sql. " . mysqli_error($db);
 }
+
+// close connection
+mysqli_close($db);
 ?>
 
 <html>
@@ -70,7 +89,7 @@ function test_input($data) {
                   <form id="login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" role="form" style="display: block;">
                     <div class="form-group">
                       <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
-                      <span class="error">* <?php echo $nameErr;?></span>
+                      <span class="error">* <?php echo $usernameErr;?></span>
                     </div>
                     <div class="form-group">
                       <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
