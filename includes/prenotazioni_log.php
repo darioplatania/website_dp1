@@ -4,7 +4,7 @@
    $email = $_SESSION['login_user'];
 
    /*query per vedere se ci sono prenotazioni*/
-   $sql = "SELECT * FROM prenotazioni";
+   $sql = "SELECT * FROM prenotazioni ORDER BY inizio ASC";
    $result = mysqli_query($db,$sql);
    //$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
    $active = $row['active'];
@@ -46,7 +46,7 @@
       <div id="sidebar-wrapper">
           <ul class="sidebar-nav">
             <li>
-                <a>Benvenuto <b><?php echo $user;?></b></a>
+                <a>Benvenuto <b><?php echo $email;?></b></a>
             </li>
               <li>
                   <a href="prenotazioni.php">Prenotazioni</a>

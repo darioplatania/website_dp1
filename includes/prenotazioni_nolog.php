@@ -3,7 +3,7 @@
   include('session.php');
 
    /*query per vedere se ci sono prenotazioni*/
-   $sql = "SELECT * FROM prenotazioni";
+   $sql = "SELECT * FROM prenotazioni ORDER BY inizio ASC";
    $result = mysqli_query($db,$sql);
    //$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
    $active = $row['active'];
