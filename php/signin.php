@@ -8,7 +8,7 @@
       $myemail = mysqli_real_escape_string($db,$_POST['email']);
       $mypassword = mysqli_real_escape_string($db,(md5($_POST['password'])));
 
-      $sql = "SELECT id FROM users WHERE email = '$myemail' and password = '$mypassword'";      
+      $sql = "SELECT id FROM users WHERE email = '$myemail' and password = '$mypassword'";
       $result = mysqli_query($db,$sql);
       $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
       $active = $row['active'];
@@ -24,6 +24,10 @@
          $error = "Si prega di inserire Email e Password";
       }
    }
+
+   if(isset($_GET['Message'])){
+    $expiration = $_GET['Message'];
+}
 ?>
 <html>
 <head>
@@ -56,6 +60,7 @@
                   <a href="#" class="active" id="login-form-link">Accedi</a>
                 </div>
               </div>
+              <?php echo "<p class='text-danger'>$expiration</p>";?>
             </div>
             <div class="panel-body">
               <div class="row">
