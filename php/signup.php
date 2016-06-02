@@ -1,60 +1,93 @@
 <?php
 include ('config.php');
-
-// Check connection
-if($db === false){
-    die("ERROR: Could not connect. " . mysqli_connect_error());
+if ($db->connect_error) {
+    die("Connection failed: " . $db->connect_error);
 }
+
+// define variables and set to empty values
+$nomeErr = $cognomeErr = $emailErr = $passwordErr = "";
+$nome = $cognome = $email = $password = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $valid = true;
+
+  /*controllo nome*/
   if (empty($_POST["nome"])) {
-    $nomeErr = "Nome richiesto";
+    $nomeErr = "Inserirsci il Nome";
+    $valid = false;
   } else {
-    $nome = mysqli_real_escape_string($db, $_POST['nome']);
+    $nome = test_input($_POST["nome"]);
     // check if name only contains letters and whitespace
     if (!preg_match("/^[a-zA-Z ]*$/",$nome)) {
-      $nomeErr2 = "Inserire solo lettere o spazi bianchi";
+      $nomeErr = "Solo lettere o spazi bianchi";
+      $valid = false;
+
     }
   }
 
+  /*controllo cognome*/
   if (empty($_POST["cognome"])) {
-    $cognomeErr = "Cognome richiesto";
+    $cognomeErr = "Inserisci il Cognome";
+    $valid = false;
   } else {
-    $cognome = mysqli_real_escape_string($db, $_POST['cognome']);
+    $cognome = test_input($_POST["cognome"]);
     // check if name only contains letters and whitespace
     if (!preg_match("/^[a-zA-Z ]*$/",$cognome)) {
-      $cognomeErr2 = "Inserire solo lettere o spazi bianchi";
+      $cognomeErr = "Solo lettere o spazi bianchi";
+      $valid = false;
     }
   }
 
+  /*controllo email*/
   if (empty($_POST["email"])) {
-    $emailErr = "Email richiesta";
+    $emailErr = "Inserirsci l'Email";
+    $valid = false;
   } else {
-    $email = mysqli_real_escape_string($db, $_POST['email']);
+    $email = test_input($_POST["email"]);
+    // check if e-mail address is well-formed
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      $emailErrFormat = "Inserire l'email nel formato admin@example.com";
+      $emailErr = "Formato Email non valido! (admin@example.com)";
+      $valid = false;
     }
   }
 
-  if (empty($_POST['password'])) {
-    $passwordErr = "Password richiesta";
+  /*controllo password*/
+  if (empty($_POST["password"])) {
+    $passwordErr = "Inserisci la Password";
+    $valid = false;
   } else {
-    $password = mysqli_real_escape_string($db, (md5($_POST['password'])));
+    $password = test_input((md5($_POST['password'])));
   }
-
 }
 
-// attempt insert query execution
-$sql = "INSERT INTO users (nome, cognome, email, password) VALUES ('$nome', '$cognome', '$email', '$password')";
-if(mysqli_query($db, $sql)){
-    echo "Registrazione avvenuta con successo";
-    header("location: signin.php");
-} else{
-    echo "Oops abbiamo un errore! $sql. " . mysqli_error($db);
+/*Sanitize data*/
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
 }
 
-// close connection
-mysqli_close($db);
+//if valid then redirect
+  if($valid)
+  {
+    $sql = "INSERT INTO users (nome, cognome, email, password) VALUES ('$nome', '$cognome', '$email', '$password')";
+    if(mysqli_query($db, $sql))
+     {
+        $success = "Registrazione avvenuta con successo";
+        header("refresh:5;location: signin.php");
+     }
+    else
+     {
+       $danger = "Oops abbiamo un errore! $sql. " . mysqli_error($db);
+     }
+     // close connection
+     mysqli_close($db);
+  }
+  //else
+  //{
+    //echo "no";
+  //}
 ?>
 
 <html>
@@ -89,28 +122,29 @@ mysqli_close($db);
                 </div>
               </div>
             </div>
-
+            <?php echo "<p class='text-success'>$success</p>";?>
+            <?php echo "<p class='text-danger'>$danger</p>";?>
             <div class="panel-body">
               <div class="row">
                 <div class="col-lg-12">
                   <form id="login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" role="form" style="display: block;">
                     <div class="form-group">
-                      <input type="text" name="nome" id="nome" tabindex="1" class="form-control" placeholder="Nome" value="">
+                      <input type="text" name="nome" id="nome" tabindex="1" class="form-control" placeholder="Nome">
                       <?php echo "<p class='text-danger'>$nomeErr</p>";?>
-                      <?php echo "<p class='text-danger'>$nomeErr2</p>";?>
+
                     </div>
                     <div class="form-group">
-                      <input type="text" name="cognome" id="cognome" tabindex="2" class="form-control" placeholder="Cognome" value="">
+                      <input type="text" name="cognome" id="cognome" tabindex="2" class="form-control" placeholder="Cognome">
                       <?php echo "<p class='text-danger'>$cognomeErr</p>";?>
-                      <?php echo "<p class='text-danger'>$cognomeErr2</p>";?>
+
                     </div>
                     <div class="form-group">
-                      <input type="email" name="email" id="email" tabindex="4" class="form-control" placeholder="Email">
+                      <input type="email" name="email" id="email" tabindex="3" class="form-control" placeholder="Email">
                       <?php echo "<p class='text-danger'>$emailErr</p>";?>
-                      <?php echo "<p class='text-danger'>$emailErrFormat</p>";?>
+
                     </div>
                     <div class="form-group">
-                      <input type="password" name="password" id="password" tabindex="3" class="form-control" placeholder="Password">
+                      <input type="password" name="password" id="password" tabindex="4" class="form-control" placeholder="Password">
                       <?php echo "<p class='text-danger'>$passwordErr</p>";?>
                     </div>
                     <div class="form-group">
