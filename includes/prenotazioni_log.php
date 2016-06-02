@@ -5,7 +5,7 @@
 
    /*query per vedere se ci sono prenotazioni*/
    $sql = "SELECT * FROM prenotazioni ORDER BY inizio ASC";
-   $result = mysqli_query($db,$sql);
+   $result = mysqli_query($db,$sql);   ;
    //$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
    $active = $row['active'];
    $count = mysqli_num_rows($result);
@@ -68,6 +68,7 @@
                     <p>Le nostre prenotazioni in corso!</p>
                     <?php
                         while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) {
+                        $id = $row['id'];
                         ?>
                         <table class="table table-bordered">
                         <thead>
@@ -83,16 +84,22 @@
                           <tr>
                             <td><?php echo $row['id']?></td>
                             <td><?php echo $row['inizio']?></td>
-                            <td><?php echo $row['durata']?></td>
+                            <td><?php echo $row['durata']?>min</td>
                             <td><?php echo $row['macchina']?></td>
                             <td><?php echo $row['prenotazione']?></td>
                             <? if ($row['prenotazione'] == $email): ?>
                               <td>
                                 <button type="button" class="btn btn-default btn-sm">
-                                  <span class="glyphicon glyphicon-trash"></span>
+                                  <span class="glyphicon glyphicon-trash">
+                                  </span>
+                                  <?php
+                                    include("config.php");
+                                    $delete="DELETE FROM prenotazioni WHERE id='$id'";
+                                    mysqli_query($db,$delete);
+                                  ?>
                                 </button>
                               </td>
-                           <? else: ?>
+                            <? else: ?>
                               <td class="glyphicon glyphicon-lock"></td>
                             <? endif; ?>
                           </tr>

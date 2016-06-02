@@ -84,7 +84,7 @@
                           <tbody>
                             <tr>
                               <td><?php echo $row['inizio']?></td>
-                              <td><?php echo $row['durata']?></td>
+                              <td><?php echo $row['durata']?>min</td>
                               <td><?php echo $row['macchina']?></td>
                               <td><?php echo $row['prenotazione']?></td>
                             </tr>
