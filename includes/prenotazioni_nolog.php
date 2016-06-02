@@ -3,7 +3,7 @@
   include('session.php');
 
    /*query per vedere se ci sono prenotazioni*/
-   $sql = "SELECT * FROM prenotazioni ORDER BY inizio ASC";
+   $sql = "SELECT * FROM prenotazioni ORDER BY ora, minuti ASC";
    $result = mysqli_query($db,$sql);
    //$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
    $active = $row['active'];
@@ -75,7 +75,7 @@
                           <table class="table table-bordered">
                           <thead>
                             <tr>
-                              <th>Inizio</th>
+                              <th>Inizio (Ora:Minuti)</th>
                               <th>Durata</th>
                               <th>Macchina</th>
                               <th>Prenotato da</th>
@@ -83,7 +83,7 @@
                           </thead>
                           <tbody>
                             <tr>
-                              <td><?php echo $row['inizio']?></td>
+                              <td><?php echo $row['ora']?>:<?php echo $row['minuti']?></td>
                               <td><?php echo $row['durata']?>min</td>
                               <td><?php echo $row['macchina']?></td>
                               <td><?php echo $row['prenotazione']?></td>

@@ -4,7 +4,7 @@
    $email = $_SESSION['login_user'];
 
    /*query per vedere se ci sono prenotazioni*/
-   $sql = "SELECT * FROM prenotazioni ORDER BY inizio ASC";
+   $sql = "SELECT * FROM prenotazioni ORDER BY ora, minuti ASC";
    $result = mysqli_query($db,$sql);   ;
    //$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
    $active = $row['active'];
@@ -73,8 +73,7 @@
                         <table class="table table-bordered">
                         <thead>
                           <tr>
-                            <th>ID</th>
-                            <th>Inizio</th>
+                            <th>Inizio (Ora:Minuti)</th>
                             <th>Durata</th>
                             <th>Macchina</th>
                             <th>Prenotato da</th>
@@ -82,8 +81,7 @@
                         </thead>
                         <tbody>
                           <tr>
-                            <td><?php echo $row['id']?></td>
-                            <td><?php echo $row['inizio']?></td>
+                            <td><?php echo $row['ora']?>:<?php echo $row['minuti']?></td>
                             <td><?php echo $row['durata']?>min</td>
                             <td><?php echo $row['macchina']?></td>
                             <td><?php echo $row['prenotazione']?></td>
@@ -94,7 +92,7 @@
                                   </span>
                                   <?php
                                     include("config.php");
-                                    $delete="DELETE FROM prenotazioni WHERE id='$id'";
+                                    $delete="DELETE FROM prenotazioni WHERE id='255'";
                                     mysqli_query($db,$delete);
                                   ?>
                                 </button>
@@ -109,6 +107,9 @@
                         }
                         ?>
                         <?php
+                        include ('user_prenotation.php');
+                        ?>
+                        <?php
                         include ('gestione.php');
                         ?>
                       <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Menu</a>
@@ -116,6 +117,7 @@
                 <? else: ?>
                 <h1>Print3D Prenotazioni</h1>
                 <p>Spiacenti non sono presenti prenotazioni al momento!</p>
+                <?php include ('gestione.php');?>
                 <? endif; ?>
               </div>
           </div>
