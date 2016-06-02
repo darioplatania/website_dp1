@@ -1,6 +1,6 @@
 <?php
    include('session.php');
-   $user = $_SESSION['login_user'];
+   $email = $_SESSION['login_user'];
 ?>
 <html lang="en">
 
@@ -33,10 +33,10 @@
 
     <div id="wrapper">
         <!-- Sidebar -->
-        <div id="sidebar-wrapper">            
+        <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li>
-                    <a>Benvenuto <b><?php echo $user;?></b></a>
+                    <a>Benvenuto <b><?php echo $email;?></b></a>
                 </li>
                 <li>
                     <a href="prenotazioni.php">Prenotazioni</a>

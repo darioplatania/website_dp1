@@ -50,7 +50,7 @@
             </li>
               <li>
                   <a href="prenotazioni.php">Prenotazioni</a>
-              </li>
+              </li>              
               <li>
                   <a href="logout.php">Sign Out</a>
               </li>
@@ -95,9 +95,6 @@
 
                         <?php
                         }
-                        ?>
-                        <?php
-                        include ('user_prenotation.php');
                         ?>
                         <?php
                         include ('gestione.php');
