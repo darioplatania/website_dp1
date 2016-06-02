@@ -5,10 +5,10 @@
    if($_SERVER["REQUEST_METHOD"] == "POST") {
       // username and password sent from form
 
-      $myusername = mysqli_real_escape_string($db,$_POST['username']);
+      $myemail = mysqli_real_escape_string($db,$_POST['email']);
       $mypassword = mysqli_real_escape_string($db,(md5($_POST['password'])));
 
-      $sql = "SELECT id FROM users WHERE username = '$myusername' and password = '$mypassword'";
+      $sql = "SELECT id FROM users WHERE email = '$myemail' and password = '$mypassword'";      
       $result = mysqli_query($db,$sql);
       $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
       $active = $row['active'];
@@ -18,10 +18,10 @@
       // If result matched $myusername and $mypassword, table row must be 1 row
       if($count == 1) {
          session_register("myusername");
-         $_SESSION['login_user'] = $myusername;
+         $_SESSION['login_user'] = $myemail;
          header("location: welcome.php");
       }else {
-         $error = "Si prega di inserire Username e Password";
+         $error = "Si prega di inserire Email e Password";
       }
    }
 ?>
@@ -62,7 +62,7 @@
                 <div class="col-lg-12">
                   <form id="login-form" action="" method="post" role="form" style="display: block;">
                     <div class="form-group">
-                      <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+                      <input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value="">
                     </div>
                     <div class="form-group">
                       <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">

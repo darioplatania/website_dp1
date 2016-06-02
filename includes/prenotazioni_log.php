@@ -1,7 +1,7 @@
 <?php
    include('session.php');
    include("config.php");
-   $user = $_SESSION['login_user'];
+   $email = $_SESSION['login_user'];
 
    /*query per vedere se ci sono prenotazioni*/
    $sql = "SELECT * FROM prenotazioni";
@@ -45,7 +45,7 @@
       <!-- Sidebar -->
       <div id="sidebar-wrapper">
           <ul class="sidebar-nav">
-            <li class="sidebar-brand">
+            <li>
                 <a>Benvenuto <b><?php echo $user;?></b></a>
             </li>
               <li>
@@ -84,7 +84,7 @@
                             <td><?php echo $row['durata']?></td>
                             <td><?php echo $row['macchina']?></td>
                             <td><?php echo $row['prenotazione']?></td>
-                            <? if ($row['prenotazione'] == $user): ?>
+                            <? if ($row['prenotazione'] == $email): ?>
                               <td class="glyphicon glyphicon-trash" aria-hidden="true"></td>
                             <? else: ?>
                               <td class="glyphicon glyphicon-lock"></td>

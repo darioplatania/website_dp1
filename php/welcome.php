@@ -32,12 +32,10 @@
 <body>
 
     <div id="wrapper">
-
         <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-
+        <div id="sidebar-wrapper">            
             <ul class="sidebar-nav">
-                <li class="sidebar-brand">
+                <li>
                     <a>Benvenuto <b><?php echo $user;?></b></a>
                 </li>
                 <li>

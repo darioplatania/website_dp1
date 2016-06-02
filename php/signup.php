@@ -7,13 +7,23 @@ if($db === false){
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  if (empty($_POST["username"])) {
-    $usernameErr = "Username richiesto";
+  if (empty($_POST["nome"])) {
+    $nomeErr = "Nome richiesto";
   } else {
-    $username = mysqli_real_escape_string($db, $_POST['username']);
+    $nome = mysqli_real_escape_string($db, $_POST['nome']);
     // check if name only contains letters and whitespace
-    if (!preg_match("/^[a-zA-Z ]*$/",$username)) {
-      $nameErr = "Inserire solo lettere o spazi bianchi";
+    if (!preg_match("/^[a-zA-Z ]*$/",$nome)) {
+      $nomeErr2 = "Inserire solo lettere o spazi bianchi";
+    }
+  }
+
+  if (empty($_POST["cognome"])) {
+    $cognomeErr = "Cognome richiesto";
+  } else {
+    $cognome = mysqli_real_escape_string($db, $_POST['cognome']);
+    // check if name only contains letters and whitespace
+    if (!preg_match("/^[a-zA-Z ]*$/",$cognome)) {
+      $cognomeErr2 = "Inserire solo lettere o spazi bianchi";
     }
   }
 
@@ -35,11 +45,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // attempt insert query execution
-$sql = "INSERT INTO users (username, password, email) VALUES ('$username', '$password', '$email')";
+$sql = "INSERT INTO users (nome, cognome, email, password) VALUES ('$nome', '$cognome', '$email', '$password')";
 if(mysqli_query($db, $sql)){
-    echo "Records added successfully.";
+    echo "Registrazione avvenuta con successo";
+    header("location: signin.php");
 } else{
-    echo "ERROR: Could not able to execute $sql. " . mysqli_error($db);
+    echo "Oops abbiamo un errore! $sql. " . mysqli_error($db);
 }
 
 // close connection
@@ -78,28 +89,34 @@ mysqli_close($db);
                 </div>
               </div>
             </div>
+
             <div class="panel-body">
               <div class="row">
                 <div class="col-lg-12">
                   <form id="login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" role="form" style="display: block;">
                     <div class="form-group">
-                      <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
-                      <?php echo "<p class='text-danger'>$usernameErr</p>";?>
-                      <?php echo "<p class='text-danger'>$nameErr</p>";?>
+                      <input type="text" name="nome" id="nome" tabindex="1" class="form-control" placeholder="Nome" value="">
+                      <?php echo "<p class='text-danger'>$nomeErr</p>";?>
+                      <?php echo "<p class='text-danger'>$nomeErr2</p>";?>
                     </div>
                     <div class="form-group">
-                      <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
-                      <?php echo "<p class='text-danger'>$passwordErr</p>";?>
+                      <input type="text" name="cognome" id="cognome" tabindex="2" class="form-control" placeholder="Cognome" value="">
+                      <?php echo "<p class='text-danger'>$cognomeErr</p>";?>
+                      <?php echo "<p class='text-danger'>$cognomeErr2</p>";?>
                     </div>
                     <div class="form-group">
-                      <input type="email" name="email" id="email" tabindex="3" class="form-control" placeholder="Email">
+                      <input type="email" name="email" id="email" tabindex="4" class="form-control" placeholder="Email">
                       <?php echo "<p class='text-danger'>$emailErr</p>";?>
                       <?php echo "<p class='text-danger'>$emailErrFormat</p>";?>
                     </div>
                     <div class="form-group">
+                      <input type="password" name="password" id="password" tabindex="3" class="form-control" placeholder="Password">
+                      <?php echo "<p class='text-danger'>$passwordErr</p>";?>
+                    </div>
+                    <div class="form-group">
                       <div class="row">
                         <div class="col-sm-6 col-sm-offset-3">
-                          <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Iscriviti">
+                          <input type="submit" name="login-submit" id="login-submit" tabindex="5" class="form-control btn btn-login" value="Iscriviti">
                         </div>
                       </div>
                     </div>
