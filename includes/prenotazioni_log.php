@@ -50,14 +50,14 @@
             </li>
               <li>
                   <a href="prenotazioni.php">Prenotazioni</a>
-              </li>              
+              </li>
               <li>
                   <a href="logout.php">Sign Out</a>
               </li>
           </ul>
       </div>
       <!-- /#sidebar-wrapper -->
-
+      <form action="" method="post">
       <!-- Page Content -->
       <div id="page-content-wrapper">
           <div class="container-fluid">
@@ -72,6 +72,7 @@
                         <table class="table table-bordered">
                         <thead>
                           <tr>
+                            <th>ID</th>
                             <th>Inizio</th>
                             <th>Durata</th>
                             <th>Macchina</th>
@@ -80,19 +81,23 @@
                         </thead>
                         <tbody>
                           <tr>
+                            <td><?php echo $row['id']?></td>
                             <td><?php echo $row['inizio']?></td>
                             <td><?php echo $row['durata']?></td>
                             <td><?php echo $row['macchina']?></td>
                             <td><?php echo $row['prenotazione']?></td>
                             <? if ($row['prenotazione'] == $email): ?>
-                              <td class="glyphicon glyphicon-trash" aria-hidden="true"></td>
-                            <? else: ?>
+                              <td>
+                                <button type="button" class="btn btn-default btn-sm">
+                                  <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                              </td>
+                           <? else: ?>
                               <td class="glyphicon glyphicon-lock"></td>
                             <? endif; ?>
                           </tr>
                        </tbody>
                       </table>
-
                         <?php
                         }
                         ?>
@@ -109,6 +114,7 @@
           </div>
       </div>
       <!-- /#page-content-wrapper -->
+    </form>
 
   </div>
   <!-- /#wrapper -->
