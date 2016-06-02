@@ -9,6 +9,18 @@
    $row = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC);
 
    $login_session = $row['email'];
+
+   /*funzione che mi rimanda al login dopo 120 secondi*/
+   if (!isset($_SESSION['CREATED'])) {
+    $_SESSION['CREATED'] = time();
+   }
+   else if (time() - $_SESSION['CREATED'] > 120)
+   {
+        // session started more than 2 minutes ago
+        session_regenerate_id(true);    // change session ID for the current session and invalidate old session ID
+        $_SESSION['CREATED'] = time();  // update creation time
+        header("location: signin.php");
+    }
 /*
    if(!isset($_SESSION['login_user'])){
       header("location:signin.php");
