@@ -37,6 +37,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $valid = false;
   } else {
     $durata = test_input($_POST["durata"]);
+    if (!preg_match("/^^[0-9]{0,3}/",$durata)) {
+      $durataErr = "Inserire solo numeri";
+      $valid = false;
+    }
   }
 
   /*controllo macchina*/
@@ -99,7 +103,7 @@ function test_input($data) {
                   <div class="col-xs-4">
                     <form id="login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" role="form" style="display: block;">
                       <div class="form-group">
-                        <input type="number" name="durata" id="durata" min="0" max="59" tabindex="1" class="form-control" placeholder="Durata (in minuti)">
+                        <input type="number" name="durata" id="durata" min="0" max="999" tabindex="1" class="form-control" placeholder="Durata (in minuti)">
                         <?php echo "<p class='text-danger'>$durataErr</p>";?>
                       </div>
                       <div class="form-group">
