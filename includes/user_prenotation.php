@@ -1,7 +1,7 @@
 <!-- Page Content -->
 <?php
-  include('session.php');  
-  $email = $_SESSION['login_user'];
+  include ('config.php');
+  $email = $_SESSION['email'];
 
   /*query per vedere se ci sono prenotazioni*/
   $sql = "SELECT * FROM prenotazioni WHERE prenotazione = '$email'";

@@ -1,42 +1,21 @@
 <?php
-   include("config.php");
    session_start();
-
-   if($_SERVER["REQUEST_METHOD"] == "POST") {
-      // username and password sent from form
-
-      $myemail = mysqli_real_escape_string($db,$_POST['email']);
-      $mypassword = mysqli_real_escape_string($db,(md5($_POST['password'])));
-
-      $sql = "SELECT id FROM users WHERE email = '$myemail' and password = '$mypassword'";
-      $result = mysqli_query($db,$sql);
-      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-      $active = $row['active'];
-
-      $count = mysqli_num_rows($result);
-
-      // If result matched $myusername and $mypassword, table row must be 1 row
-      if($count == 1) {
-         session_register("myusername");
-         $_SESSION['login_user'] = $myemail;
-         header("location: welcome.php");
-      }else {
-         $error = "Si prega di inserire Email e Password";
-      }
-   }
-
-   if(isset($_GET['Message'])){
-    $expiration = $_GET['Message'];
-}
 ?>
+
 <html>
 <head>
 
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <!-- jQuery library -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-  <!-- Latest compiled JavaScript -->
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <!-- Bootstrap Core CSS -->
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+  <!-- Bootstrap JS -->
+  <link href="../js/bootstrap.min.js" rel="stylesheet">
+
+  <!-- Jquery -->
+  <link href="../js/jquery.js" rel="stylesheet">
 
   <title>Print3d</title>
 </head>
@@ -51,7 +30,7 @@
                   <a href="signup.php" id="register-form-link">Non sei ancora Registrato?</a>
                 </div>
                 <div class="col-xs-6 col-md-4">
-                  <a href="../index.html" id="register-form-link">Home</a>
+                  <a href="../index.php" id="register-form-link">Home</a>
                 </div>
               </div>
               <hr>
@@ -65,7 +44,7 @@
             <div class="panel-body">
               <div class="row">
                 <div class="col-lg-12">
-                  <form id="login-form" action="" method="post" role="form" style="display: block;">
+                  <form id="login-form" action="signin.php" method="post" role="form" style="display: block;">
                     <div class="form-group">
                       <input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value="">
                     </div>
@@ -94,3 +73,34 @@
     </div>
 </body>
 </html>
+
+<?php
+   include("config.php");
+
+   if($_SERVER["REQUEST_METHOD"] == "POST") {
+      // username and password sent from form
+
+      $email = mysqli_real_escape_string($db,$_POST['email']);
+      $password = mysqli_real_escape_string($db,(md5($_POST['password'])));
+
+      $sql = "SELECT id FROM users WHERE email = '$email' and password = '$password'";
+      $result = mysqli_query($db,$sql);
+      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+      $active = $row['active'];
+
+      $count = mysqli_num_rows($result);
+
+      // If result matched $email and $password, table row must be 1 row
+      if($count == 1) {
+        $_SESSION['email']=$email;//here session is used and value of $email store in $_SESSION.
+         header("location: ../index.php");
+      }else {
+         $error = "Si prega di inserire Email e Password";
+         echo "<p align='center' class='text-danger'>$error</p>";
+      }
+   }
+
+   //if(isset($_GET['Message'])){
+    //$expiration = $_GET['Message'];
+   //}
+?>

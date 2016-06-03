@@ -75,7 +75,8 @@ function test_input($data) {
     if(mysqli_query($db, $sql))
      {
         $success = "Registrazione avvenuta con successo";
-        header("refresh:5;location: signin.php");
+        //header("refresh:5;location: signin.php");
+        echo "<script>window.open('signin.php','_self')</script>";
      }
     else
      {
@@ -112,7 +113,7 @@ function test_input($data) {
                   <a href="signin.php" id="register-form-link">Accedi</a>
                 </div>
                 <div class="col-xs-6 col-md-4">
-                  <a href="../index.html" id="register-form-link">Home</a>
+                  <a href="../index.php" id="register-form-link">Home</a>
                 </div>
               </div>
               <hr>

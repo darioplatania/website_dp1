@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
   */
 
-  $ora = date("h");
+  $ora = date("H");
   $minuti = date("i");
 
   /*controllo durata*/
@@ -103,15 +103,19 @@ function test_input($data) {
                   <div class="col-xs-4">
                     <form id="login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" role="form" style="display: block;">
                       <div class="form-group">
+                        <p>Ora Corrente</p>
+                        <input type="text" name="ora" id="ora"  tabindex="1" class="form-control" placeholder="Ora" value="<?php echo $ora;?>:<?php echo $minuti;?>">
+                      </div>
+                      <div class="form-group">
+                        <input type="email" name="prenotazione" id="prenotazione" tabindex="3" class="form-control" value="<?php echo $email;?>">
+                      </div>
+                      <div class="form-group">
                         <input type="number" name="durata" id="durata" min="0" max="999" tabindex="1" class="form-control" placeholder="Durata (in minuti)">
                         <?php echo "<p class='text-danger'>$durataErr</p>";?>
                       </div>
                       <div class="form-group">
                         <input type="number" name="macchina" id="macchina" min="1" max="4" tabindex="2" class="form-control" placeholder="Macchina (1-4)">
                         <?php echo "<p class='text-danger'>$macchinaErr</p>";?>
-                      </div>
-                      <div class="form-group">
-                        <input type="email" name="prenotazione" id="prenotazione" tabindex="3" class="form-control" value="<?php echo $email;?>">
                       </div>
                     </form>
                   </div>

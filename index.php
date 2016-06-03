@@ -1,7 +1,14 @@
 <?php
-   include('session.php');
-   $email = $_SESSION['login_user'];
+session_start();
+$email = $_SESSION['email'];
+
+if(!$_SESSION['email'])
+{
+
+    header("Location: welcome.php");//redirect to login page to secure the welcome page without login access.
+}
 ?>
+
 <html lang="en">
 
 <head>
@@ -15,18 +22,16 @@
     <title>Print3D</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="../css/simple-sidebar.css" rel="stylesheet">
+    <link href="css/simple-sidebar.css" rel="stylesheet">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <!-- Bootstrap JS -->
+    <link href="js/bootstrap.min.js" rel="stylesheet">
 
+    <!-- Jquery -->
+    <link href="js/jquery.js" rel="stylesheet">
 </head>
 
 <body>
@@ -39,10 +44,10 @@
                     <a>Benvenuto <b><?php echo $email;?></b></a>
                 </li>
                 <li>
-                    <a href="prenotazioni.php">Prenotazioni</a>
+                    <a href="php/prenotazioni.php">Prenotazioni</a>
                 </li>
                 <li>
-                    <a href="logout.php">Sign Out</a>
+                    <a href="php/logout.php">Sign Out</a>
                 </li>
             </ul>
         </div>

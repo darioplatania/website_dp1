@@ -1,3 +1,14 @@
+<?php
+session_start();
+$email = $_SESSION['email'];
+
+if($_SESSION['email'])
+{
+
+    header("Location: index.php");
+}
+?>
+
 <html lang="en">
 
 <head>
