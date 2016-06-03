@@ -20,10 +20,8 @@
         session_regenerate_id(true);    // change session ID for the current session and invalidate old session ID
         $_SESSION['CREATED'] = time();  // update creation time
         $Message = "Sessione scaduta si prega di loggarsi nuovamente";
-        header("Location:signin.php?Message=".$Message);
-        die;
-
-    }
+        header("Location:signin.php"); //?Message=".$Message
+   }
 /*
    if(!isset($_SESSION['login_user'])){
       header("location:signin.php");
