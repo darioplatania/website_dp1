@@ -63,22 +63,29 @@ function test_input($data) {
 //if valid then redirect
   if($valid)
   {
-    $sql = "INSERT INTO prenotazioni (ora, minuti, durata, macchina, prenotazione) VALUES ('$ora', '$minuti', '$durata', '$macchina', '$email')";
-    if(mysqli_query($db, $sql))
-     {
-        $success = "Prenotazione inserita con successo";
+
+      if(($sql_ora == $ora) && ($sql_minuti == $minuti)){
+        $imposs = "Oops abbiamo un errore!";
+      }
+      else{
+      $sql = "INSERT INTO prenotazioni (ora, minuti, durata, macchina, prenotazione) VALUES ('$ora', '$minuti', '$durata', '$macchina', '$email')";
+      if(mysqli_query($db, $sql))
+       {
+          $success = "Prenotazione inserita con successo";
+       }
+      else
+       {
+         $danger = "Oops abbiamo un errore!";
+       }
+       // close connection
+       mysqli_close($db);
      }
-    else
-     {
-       $danger = "Oops abbiamo un errore!";
-     }
-     // close connection
-     mysqli_close($db);
   }
 ?>
 
 <br><br>
 <?php echo "<p class='text-success'>$success</p>";?>
+<?php echo "<p class='text-danger'>$imposs</p>";?>
 <div class="row">
     <div class="col-lg-12">
       <h4>Gestione Prenotazioni</h4>

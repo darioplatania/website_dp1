@@ -1,6 +1,5 @@
 <?php
   include('config.php');
-  include('session.php');
 
    /*query per vedere se ci sono prenotazioni*/
    $sql = "SELECT * FROM prenotazioni ORDER BY ora, minuti ASC";
@@ -9,8 +8,6 @@
    $active = $row['active'];
    $count = mysqli_num_rows($result);
 ?>
-
-
 
 <html>
 

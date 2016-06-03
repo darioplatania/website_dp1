@@ -9,6 +9,7 @@ if(!$_SESSION['email'])
 }
 ?>
 
+<!-- se sono loggato mi fa vedere la pagina dell'utente -->
 <html lang="en">
 
 <head>
