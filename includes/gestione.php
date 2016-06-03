@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   $ora = date("h");
   $minuti = date("i");
-  
+
   /*controllo durata*/
   if (empty($_POST["durata"])) {
     $durataErr = "Inserisci durata";
@@ -74,10 +74,6 @@ function test_input($data) {
      // close connection
      mysqli_close($db);
   }
-  //else
-  //{
-    //echo "no";
-  //}
 ?>
 
 <br><br>
