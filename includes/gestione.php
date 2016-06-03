@@ -8,10 +8,13 @@ if ($db->connect_error) {
 $oraErr = $minutiErr = $durataErr = $macchinaErr = $prenotazioneErr = "";
 $ora = $minuti = $durata = $macchina = $prenotazione = "";
 
+$ora = date("h");
+$minuti = date("i");
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $valid = true;
 
-  /*controllo ora*/
+  /*controllo ora*
   if (empty($_POST["ora"])) {
     $oraErr = "Inserirsci l'ora";
     $valid = false;
@@ -19,14 +22,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ora = test_input($_POST["ora"]);
   }
 
-  /*controllo minuti*/
+  /*controllo minuti*
   if (empty($_POST["minuti"])) {
     $minutiErr = "Inserisci i Minuti";
     $valid = false;
   } else {
     $minuti = test_input($_POST["minuti"]);
   }
+  */
 
+  $ora = date("h");
+  $minuti = date("i");
+  
   /*controllo durata*/
   if (empty($_POST["durata"])) {
     $durataErr = "Inserisci durata";
@@ -99,21 +106,15 @@ function test_input($data) {
                   <div class="col-xs-4">
                     <form id="login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" role="form" style="display: block;">
                       <div class="form-group">
-                        <input type="number" name="ora" min="0" max="24" id="ora" tabindex="1" class="form-control" placeholder="Ora (0-24)">
-                        <?php echo "<p class='text-danger'>$oraErr</p>";?>
-                        <input type="number" name="minuti" min="0" max="59" id="ora" tabindex="2" class="form-control" placeholder="Minuti (0-59)">
-                        <?php echo "<p class='text-danger'>$minutiErr</p>";?>
-                      </div>
-                      <div class="form-group">
-                        <input type="number" name="durata" id="durata" min="0" max="59" tabindex="3" class="form-control" placeholder="Durata (in minuti)">
+                        <input type="number" name="durata" id="durata" min="0" max="59" tabindex="1" class="form-control" placeholder="Durata (in minuti)">
                         <?php echo "<p class='text-danger'>$durataErr</p>";?>
                       </div>
                       <div class="form-group">
-                        <input type="number" name="macchina" id="macchina" min="1" max="4" tabindex="4" class="form-control" placeholder="Macchina (1-4)">
+                        <input type="number" name="macchina" id="macchina" min="1" max="4" tabindex="2" class="form-control" placeholder="Macchina (1-4)">
                         <?php echo "<p class='text-danger'>$macchinaErr</p>";?>
                       </div>
                       <div class="form-group">
-                        <input type="email" name="prenotazione" id="prenotazione" tabindex="5" class="form-control" value="<?php echo $email;?>">
+                        <input type="email" name="prenotazione" id="prenotazione" tabindex="3" class="form-control" value="<?php echo $email;?>">
                       </div>
                     </form>
                   </div>
