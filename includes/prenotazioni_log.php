@@ -12,11 +12,12 @@
 ?>
 
 <?php
-if(!$_SESSION['email']){
-
+if(!$_SESSION['email'])
+{
     header('Location: ../index.php');
 }
- ?>
+?>
+
 <html>
 
 <title>Prenotazioni</title>
