@@ -11,6 +11,12 @@
    mysqli_close($db);
 ?>
 
+<?php
+if(!$_SESSION['email']){
+
+    header('Location: ../index.php');
+}
+ ?>
 <html>
 
 <title>Prenotazioni</title>

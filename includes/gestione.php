@@ -109,10 +109,11 @@ function test_input($data) {
                 <div class="row">
                   <div class="col-xs-4">
                     <form id="login-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" role="form" style="display: block;">
-                      <div class="form-group">
+                      <!--<div class="form-group">
                         <p>Ora Corrente</p>
                         <input type="text" name="ora" id="ora"  tabindex="1" class="form-control" placeholder="Ora" value="<?php echo $ora;?>:<?php echo $minuti;?>">
                       </div>
+                    -->
                       <div class="form-group">
                         <input type="email" name="prenotazione" id="prenotazione" tabindex="3" class="form-control" value="<?php echo $email;?>">
                       </div>
@@ -128,7 +129,6 @@ function test_input($data) {
                   </div>
                 </div>
               </div>
-
             </div>
             <div class="modal-footer">
               <a type="button" class="btn pull-left"  data-dismiss="modal">Close</a>
