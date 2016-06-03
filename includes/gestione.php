@@ -8,9 +8,6 @@ if ($db->connect_error) {
 $oraErr = $minutiErr = $durataErr = $macchinaErr = $prenotazioneErr = "";
 $ora = $minuti = $durata = $macchina = $prenotazione = "";
 
-$ora = date("h");
-$minuti = date("i");
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $valid = true;
 
