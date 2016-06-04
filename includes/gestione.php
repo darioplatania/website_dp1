@@ -72,6 +72,11 @@ function test_input($data) {
       if(mysqli_query($db, $sql))
        {
           $success = "Prenotazione inserita con successo";
+          echo "
+            <script type=\"text/javascript\">
+            setTimeout(function () { location.reload(true); }, 1000);
+            </script>
+        ";
        }
       else
        {
