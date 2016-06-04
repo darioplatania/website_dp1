@@ -4,7 +4,7 @@
 
    /*query per vedere se ci sono prenotazioni*/
    $sql = "SELECT * FROM prenotazioni ORDER BY ora, minuti ASC";
-   $result = mysqli_query($db,$sql);   ;
+   $result = mysqli_query($db,$sql);
    //$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
    $active = $row['active'];
    $count = mysqli_num_rows($result);
@@ -17,6 +17,7 @@ if(!$_SESSION['email'])
     header('Location: ../index.php');
 }
 ?>
+
 
 <html>
 
@@ -43,6 +44,15 @@ if(!$_SESSION['email'])
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
+  <script type="text/javascript">
+function delete_id(id)
+{
+ if(confirm('Sei sicuro di voler eliminare la prenotazione?'))
+ {
+  window.location.href='../includes/delete?delete_id='+id;
+ }
+}
+</script>
 </head>
 
 <body>
@@ -93,15 +103,7 @@ if(!$_SESSION['email'])
                             <td><?php echo $row['prenotazione']?></td>
                             <? if ($row['prenotazione'] == $email): ?>
                               <td>
-                                <button type="button" class="btn btn-default btn-sm">
-                                  <span class="glyphicon glyphicon-trash">
-                                  </span>
-                                  <?php
-                                    include("config.php");
-                                    $delete="DELETE FROM prenotazioni WHERE id='255'";
-                                    mysqli_query($db,$delete);
-                                  ?>
-                                </button>
+                                <a href="javascript:delete_id(<?php echo $row['id']; ?>)" class="glyphicon glyphicon-trash" role="button"></a>
                               </td>
                             <? else: ?>
                               <td class="glyphicon glyphicon-lock"></td>
