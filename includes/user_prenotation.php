@@ -8,7 +8,11 @@
   if(!$_SESSION['email'])
   {
       header('Location: ../index.php');
-  }  
+  }
+  else
+  {
+      header('Location: ../index.php');
+  }
 
   /*query per vedere se ci sono prenotazioni*/
   $sql = "SELECT * FROM prenotazioni WHERE prenotazione = '$email'";
