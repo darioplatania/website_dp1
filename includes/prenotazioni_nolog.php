@@ -1,5 +1,12 @@
 <?php
+  session_start();
   include('../php/config.php');
+
+  /*se è attiva la sessione e cerco la pagina tramite url,mi rimanda alla index*/
+  if($_SESSION['email'])
+  {
+      header('Location: ../index.php');
+  }
 
    /*query per vedere se ci sono prenotazioni*/
    $sql = "SELECT * FROM prenotazioni ORDER BY ora, minuti ASC";

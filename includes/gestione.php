@@ -1,5 +1,14 @@
+
 <?php
+session_start();
 include ('config.php');
+
+/*se non è attiva la sessione mi rimanda alla index*/
+if(!$_SESSION['email'])
+{
+    header('Location: ../index.php');
+}
+
 if ($db->connect_error) {
     die("Connection failed: " . $db->connect_error);
 }
@@ -8,8 +17,15 @@ if ($db->connect_error) {
 $oraErr = $minutiErr = $durataErr = $macchinaErr = $prenotazioneErr = "";
 $ora = $minuti = $durata = $macchina = $prenotazione = "";
 
+/*define hours,minute and number of machine*/
+$ora = date("H");
+$minuti = date("i");
+$macchina = (rand(1,4));
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $valid = true;
+
+  //echo $a[$random_keys[3]];
 
   /*controllo ora*
   if (empty($_POST["ora"])) {
@@ -28,9 +44,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
   */
 
-  $ora = date("H");
-  $minuti = date("i");
-
   /*controllo durata*/
   if (empty($_POST["durata"])) {
     $durataErr = "Inserisci durata";
@@ -44,12 +57,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 
   /*controllo macchina*/
+  /*
   if (empty($_POST["macchina"])) {
     $macchinaErr = "Inserisci numero Macchina";
     $valid = false;
   } else {
     $macchina = test_input($_POST['macchina']);
   }
+  */
 }
 
 /*Sanitize data*/
@@ -74,7 +89,7 @@ function test_input($data) {
           $success = "Prenotazione inserita con successo";
           echo "
             <script type=\"text/javascript\">
-            setTimeout(function () { location.reload(true); }, 1000);
+            setTimeout(function () { location.reload(true); }, 250);
             </script>
         ";
        }
@@ -109,6 +124,9 @@ function test_input($data) {
               <h4 class="modal-title" id="myModalLabel">Aggiungi Prenotazione</h4>
               <?php echo "<p class='text-danger'>$danger</p>";?>
             </div>
+            <div class="col-md-offset-2">
+             <p class='text-danger'>La macchina verrà selezionata in maniera automatica dal sistema!</p>
+           </div>
             <div class="modal-body">
               <div class="panel-body">
                 <div class="row">
@@ -120,16 +138,17 @@ function test_input($data) {
                       </div>
                     -->
                       <div class="form-group">
-                        <input type="email" name="prenotazione" id="prenotazione" tabindex="3" class="form-control" value="<?php echo $email;?>">
+                        <input type="email" name="prenotazione" id="prenotazione" tabindex="1" class="form-control" value="<?php echo $email;?>" disabled>
                       </div>
                       <div class="form-group">
-                        <input type="number" name="durata" id="durata" min="0" max="999" tabindex="1" class="form-control" placeholder="Durata (in minuti)">
+                        <input type="number" name="durata" id="durata" min="0" max="999" tabindex="2" class="form-control" placeholder="Durata (in minuti)">
                         <?php echo "<p class='text-danger'>$durataErr</p>";?>
                       </div>
+                      <!--
                       <div class="form-group">
-                        <input type="number" name="macchina" id="macchina" min="1" max="4" tabindex="2" class="form-control" placeholder="Macchina (1-4)">
-                        <?php echo "<p class='text-danger'>$macchinaErr</p>";?>
+                        <input type="number" name="macchina" id="macchina" tabindex="3" class="form-control" value="<?php echo $macchina;?>" disabled>
                       </div>
+                    -->
                     </form>
                   </div>
                 </div>

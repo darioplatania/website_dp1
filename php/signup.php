@@ -1,4 +1,11 @@
 <?php
+session_start();
+/*se cerco tramite url questa pagina mi rimanda alla index*/
+if($_SESSION['email'])
+{
+    header('Location: ../index.php');
+}
+
 include ('config.php');
 if ($db->connect_error) {
     die("Connection failed: " . $db->connect_error);
