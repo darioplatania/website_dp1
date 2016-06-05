@@ -1,9 +1,9 @@
-
 <?php
-session_start();
+//session_start();
 include ('config.php');
 
 /*se non è attiva la sessione mi rimanda alla index*/
+/*
 if(!$_SESSION['email'])
 {
     header('Location: ../index.php');
@@ -12,6 +12,7 @@ else
 {
     header('Location: ../index.php');
 }
+*/
 
 if ($db->connect_error) {
     die("Connection failed: " . $db->connect_error);

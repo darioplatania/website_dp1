@@ -1,10 +1,10 @@
-<!-- Page Content -->
 <?php
-  session_start();
+  //session_start();
   include ('config.php');
   $email = $_SESSION['email'];
 
   /*se non è attiva la sessione mi rimanda alla index*/
+  /*
   if(!$_SESSION['email'])
   {
       header('Location: ../index.php');
@@ -13,6 +13,7 @@
   {
       header('Location: ../index.php');
   }
+  */
 
   /*query per vedere se ci sono prenotazioni*/
   $sql = "SELECT * FROM prenotazioni WHERE prenotazione = '$email'";

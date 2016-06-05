@@ -1,4 +1,12 @@
 <?php
+session_start();
+if(!$_SESSION['email'])
+{
+    header('Location: ../index.php');
+}
+?>
+
+<?php
    include("config.php");
    $email = $_SESSION['email'];
 
@@ -10,14 +18,6 @@
    $count = mysqli_num_rows($result);
    mysqli_close($db);
 ?>
-
-<?php
-if(!$_SESSION['email'])
-{
-    header('Location: ../index.php');
-}
-?>
-
 
 <html>
 
