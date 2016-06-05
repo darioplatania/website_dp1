@@ -44,7 +44,7 @@ if($_SESSION['email'])
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    <a href="index.html">
+                    <a href="index.php">
                         Print3D
                     </a>
                 </li>
